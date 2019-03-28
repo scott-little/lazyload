@@ -25,15 +25,15 @@ In JavaScript, this can be done in the [same way](https://developer.mozilla.org/
 if ('load' in HTMLImageElement.prototype) alert("yes"); else alert("no");
 ```
 
-## Ways the "load" attribute can be used:
-### Set load="lazy" on an image/iframe
+## Ways the `load` attribute can be used:
+### Set `load="lazy"` on an image/iframe
 E.g. `<img src="cat.jpg" load="lazy" />`
 
 Signals to the browser that the image/iframe is a good candidate for lazy loading.
-### Set load="eager" on an image/iframe
+### Set `load="eager"` on an image/iframe
 E.g. `<img src="cat.jpg" load="eager" />`
 
-Signals to the browser that the image/iframe is not a good candidate for lazy loading, and should be loaded right away instead of being lazily loaded. If an element was already deferred, and the load attribute is then later set to "eager", then the element should start loading.
+Signals to the browser that the image/iframe is not a good candidate for lazy loading, and should be loaded right away instead of being lazily loaded. If an element was already deferred, and the attribute is then later set to `load="eager"`, then the element should start loading.
 ### Set `load="auto"` or leave the attribute unset on an image/iframe
 E.g. `<img src="cat.jpg" load="auto" />` or just `<img src="cat.jpg" />`
 
