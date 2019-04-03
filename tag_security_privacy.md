@@ -1,5 +1,5 @@
 # TAG Security & Privacy Review Document
-See [the questionnaire doc here](https://w3ctag.github.io/security-questionnaire/).
+Answering the questions from [the questionnaire doc here](https://w3ctag.github.io/security-questionnaire/).
 
 ## 2. Questions to Consider
 ### 2.1. What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?
