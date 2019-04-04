@@ -4,7 +4,7 @@ Web pages often have images or embedded content like ads out of view near the bo
 
 LazyLoad is one such solution, which works by waiting to load images and iframes that are out of view until the user scrolls near them. Some JavaScript libraries exist that let pages lazily load images or other kinds of content in various ways, but by having native support for lazy loading in the browser itself, this will make it easier for websites to take advantage of lazy loading. This also opens up the possibility for browsers to automatically find and lazily load content that's well suited to being lazily loaded, without requiring the web page's developers to do anything, which could help a very large number of users.
 
-Web pages will be able to use a `load` attribute on `<img>` and `<iframe>` elements to control and interact with the browser's lazy loading behavior.
+Web pages will be able to use a `loading` attribute on `<img>` and `<iframe>` elements to control and interact with the browser's lazy loading behavior.
 ## Goals
 
 - Allow browsers to defer the loading of out-of-view images and iframes until the user scrolls near it.
@@ -19,25 +19,25 @@ Web pages will be able to use a `load` attribute on `<img>` and `<iframe>` eleme
 ## When do the images and iframes start loading in?
 Deferred content should start loading in once the user scrolls near it. Exactly how close "near" means is left up to the browser itself, but the idea is that the browser should typically start loading deferred content some distance before it comes into view, such that there's a good chance the image or iframe will be finished loading by the time it's scrolled into view.
 ## Detecting LazyLoad support
-In JavaScript, this can be done in the [same way](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection) that many other features can be detected from JS, by checking to see if the `load` property is defined on image or iframe elements, e.g.:
+In JavaScript, this can be done in the [same way](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection) that many other features can be detected from JS, by checking to see if the `loading` property is defined on image or iframe elements, e.g.:
 
 ```
-if ('load' in HTMLImageElement.prototype) alert("yes"); else alert("no");
+if ('loading' in HTMLImageElement.prototype) alert("yes"); else alert("no");
 ```
 
-## Ways the `load` attribute can be used:
-### Set `load="lazy"` on an image/iframe
-E.g. `<img src="cat.jpg" load="lazy" />`
+## Ways the `loading` attribute can be used:
+### Set `loading="lazy"` on an image/iframe
+E.g. `<img src="cat.jpg" loading="lazy" />`
 
 Signals to the browser that the image/iframe is a good candidate for lazy loading.
-### Set `load="eager"` on an image/iframe
-E.g. `<img src="cat.jpg" load="eager" />`
+### Set `loading="eager"` on an image/iframe
+E.g. `<img src="cat.jpg" loading="eager" />`
 
-Signals to the browser that the image/iframe is not a good candidate for lazy loading, and should be loaded right away instead of being lazily loaded. If an element was already deferred, and the attribute is then later set to `load="eager"`, then the element should start loading.
-### Set `load="auto"` or leave the attribute unset on an image/iframe
-E.g. `<img src="cat.jpg" load="auto" />` or just `<img src="cat.jpg" />`
+Signals to the browser that the image/iframe is not a good candidate for lazy loading, and should be loaded right away instead of being lazily loaded. If an element was already deferred, and the attribute is then later set to `loading="eager"`, then the element should start loading.
+### Set `loading="auto"` or leave the attribute unset on an image/iframe
+E.g. `<img src="cat.jpg" loading="auto" />` or just `<img src="cat.jpg" />`
 
-The browser will determine on its own whether or not to lazily load the image/iframe. Leaving the load attribute unset is the same as setting `load="auto"`. If the browser decides to lazily load this content, it should be careful to avoid breaking pages or negatively impact user experience.
+The browser will determine on its own whether or not to lazily load the image/iframe. Leaving the load attribute unset is the same as setting `loading="auto"`. If the browser decides to lazily load this content, it should be careful to avoid breaking pages or negatively impact user experience.
 ## Onload events
 Lazily loaded out-of-view images and iframes won't block the document's onload event. Since these images and iframes might never end up being loaded unless the user scrolls near them, it doesn't make sense to block the document's onload event on these elements since that could block the event endlessly.
 
@@ -49,12 +49,12 @@ For example, suppose there's a simple webpage:
 <body onload='console.log("Body has loaded!");'>
 <img src='visible-cat.jpg' onload='console.log("visible cat");' />
 <div style='height:10000px;'></div>
-<img load='lazy' src='lazy-cat.jpg' onload='console.log("lazy cat");' />
-<img load='eager' src='eager-cat.jpg' onload='console.log("eager cat");' />
+<img loading='lazy' src='lazy-cat.jpg' onload='console.log("lazy cat");' />
+<img loading='eager' src='eager-cat.jpg' onload='console.log("eager cat");' />
 </body>
 ```
 
-First, both the `visible-cat.jpg` and `eager-cat.jpg` image elements will load; the `visible-cat.jpg` element will start loading immediately because it's in view, and would be loaded regardless of the value of the `load` attribute on it. The `eager-cat.jpg` element would be loaded immediately because it's marked `load="eager"`. Both of those elements' onload events would fire as well, causing the strings "visible cat" and "eager cat" to be logged to the console once they load.
+First, both the `visible-cat.jpg` and `eager-cat.jpg` image elements will load; the `visible-cat.jpg` element will start loading immediately because it's in view, and would be loaded regardless of the value of the `loading` attribute on it. The `eager-cat.jpg` element would be loaded immediately because it's marked `loading="eager"`. Both of those elements' onload events would fire as well, causing the strings "visible cat" and "eager cat" to be logged to the console once they load.
 
 The `lazy-cat.jpg` image element has been deferred and so doesn't block the document's load event. Next, the body's onload event would fire, causing "Body has loaded!" to be logged to the console.
 
