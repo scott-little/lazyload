@@ -63,5 +63,6 @@ Then, suppose the user scrolls down the page all the way to the `lazy-cat.jpg` i
 
 - The [specifications draft](https://github.com/whatwg/html/pull/3752/files)
 - The [Chrome Platform Status entry](https://www.chromestatus.com/feature/5645767347798016)
+- The [TAG Design Review](https://github.com/w3ctag/design-reviews/issues/361)
 - The [design doc](https://docs.google.com/document/d/1e8ZbVyUwgIkQMvJma3kKUDg8UUkLRRdANStqKuOIvHg/edit) for LazyLoad in Chrome
 
